@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: products-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: amazonawsDNS.com
+    http:
+      paths:
+      - path: /available-products
+        pathType: Prefix
+        backend:
+          service:
+            name: app1-svc
+            port:
+              number: 2000
+      - path: /sold-out-products
+        pathType: Prefix
+        backend:
+          service:
+            name: app2-svc
+            port:
+              number: 2001
